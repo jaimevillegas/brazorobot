@@ -1,0 +1,80 @@
+What you'll need to do on the software side of things to get arduino set up.
+
+Download and install the latest arduino environment.
+http://arduino.cc/en/Main/Software
+
+Connect the USB to your computer and the arduino board.
+
+If you're on windows the driver installation may very well fail because windows does not by default have the drivers to interface with the arduino board.
+If windows fails then continue on if not then "click here"
+Click on the start menu button and type "device manager" 
+click on device manager. You will see an arrow next to Ports (COM & LPT) click the arrow.
+Under ports there will be a port named "Arduino UNO (COMxx)" Right click Arduino UNO and select Update Driver Software
+Then you will choose Browse my computer for Driver Software.
+Lastly you should go into the directory that your arduino environment was installed and find the folder named Drivers.
+Now choose the file named "Arduino UNO.inf"
+
+That should take care of that.
+
+Start up the arduino software.
+
+Select tools from the menu bar and then select Board. If you're using an arduino UNO like me select Arduino UNO.
+With your arduino board connect via USB you're going to select your serial port. Go to tools - serial port and take note of what ports are available. There will most likely only be COM3 available for selection. If that is not the case then unplug your arduino and back out of the menu and then go right back to tools - serial port to figure out what port is missing.
+Select the port that disappeared when you unplugged the USB wire from the computer.
+TAKE NOTE OF THE NAME OF THE PORT. Write it down! You'll use it later.
+
+The next step will be setting up python on your computer. We will be using version 2.6 of python for compatiblity reasons.
+http://www.python.org/download/releases/2.6/ 
+If you're using windows select the Windows x86 MSI Installer (2.6) (sig) installer. It's important that you choose the 32bit option.
+If you aren't using windows please select the corresponding download for your operating system.
+
+After you've gone through all of the set up for python we need 4 more files and then we get to the fun part.
+You'll need these 4 files to set up communication between your computer and the arduino board.
+
+I have uploaded 3 of the files to my google drive
+https://drive.google.com/folderview?id=0B2k0QJ-y8y-6bWpRSGh0QzVjSlE&usp=sharing
+Download all three of these files and save them in a folder on your desktop named arduinoServo
+
+The fourth file can be found http://sourceforge.net/projects/pyserial/files/pyserial/2.5/pyserial-2.5.win32.exe/download
+This file installs a python serial library.
+
+Finally! Lets get to the fun part.
+
+Open the Arduino program.
+
+Select file - open 
+
+Go to your desktop and open the arduinoServo folder. Select multipleSerialServoControl.
+
+Now upload this file to your arduino board by clicking the -> button to the right of the checkmark on the arduino program.
+If all goes well you should see "Done uploading." in the arduino program status bar.
+
+Now unplug the usb cable from your computer and close the arduino program.
+
+Lets hook up the servo to the arduino board now.
+The servo has a plug with 3 colored wires connected to it. The wires could be black, red, and white or brown, orange, and yellow.
+The black or brown wire is the ground. The red or orange is the power wire and the White or yellow is the control wire.
+Look up the specs of your servo on google and make sure the idle power is less than 500mA so powering the servo from your USB doesn't trip the port.
+
+Now put the brown jumper into the plug where the brown or black wire hooks up. Then put the red jumper into the red or orange plug and the yellow jumper in the yellow or white plug.
+
+The brown jumper goes in the gnd pin on the arduino board. The red wire goes in the 5v pin and the yellow wire goes to pin ~9. The ~ means the pin can does pulse width modulation.
+
+Plug your usb cable back into your computer.
+
+Open python 2.6 idle click file - open
+
+Go to your desktop and open the arduinoServo folder. Select pythonServoController.py.
+Go through the code and find, "usbport = 'COM3'"
+Change "COM3" to the port you took note of earlier.
+Press f5 to run the module.
+
+Yay! If all went well your servo moved.
+
+You can move the servo by typing move(1,and whatever angle between 1 and 180) into idle.
+Example "move(1,100)"
+
+To make this a lot more useful you can write your own code in the pythonServoController.py file.
+
+Congratulations! You've moved your first servo with an arduino board controlling it directly from your computer using python!
+Yay!
